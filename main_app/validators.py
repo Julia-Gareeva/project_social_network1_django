@@ -1,18 +1,23 @@
 from rest_framework import serializers
+import re
 
 
 class UserPasswordValidator:
     """Валидатор для проверки пароля пользователя."""
-    def __call__(self, value):
-        if len(str(value)) != 8:
-            raise serializers.ValidationError("Пароль должен быть не менее 8 символов, должен включать цифры.")
+    # Проверяет наличие символов в обоих регистрах,
+    # числел и минимальную длину 8 символов
+    pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$'
 
-        if int(len(value)) != [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]:
-            raise serializers.ValidationError("Пароль должен быть не менее 8 символов, должен включать цифры.")
+    @staticmethod
+    def validate_by_regexp(password, pattern):
+        """Валидация пароля по регулярному выражению."""
+        if re.match(pattern, password) is None:
+            raise serializers.ValidationError("Пароль имеет неправильный формат.")
 
 
 class UserEmailValidator:
-    """Валидатор для проверки почты пользователя."""
+    """Валидатор для проверки почты пользователя.
+       Разрешены домены: mail.ru, yandex.ru"""
     pass
 
 
