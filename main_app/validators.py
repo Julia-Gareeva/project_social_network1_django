@@ -18,7 +18,12 @@ class UserPasswordValidator:
 class UserEmailValidator:
     """Валидатор для проверки почты пользователя.
        Разрешены домены: mail.ru, yandex.ru"""
-    pass
+    def __call__(self, value):
+        if "mail.ru" not in str(value):
+            raise serializers.ValidationError("Разрешены адреса эл. почты только с доменными именами 'mail.ru' или 'yandex.ru'")
+
+        if "yandex.ru" not in str(value):
+            raise serializers.ValidationError("Разрешены адреса эл. почты только с доменными именами 'mail.ru' или 'yandex.ru'")
 
 
 class PublicationsUserValidator:
