@@ -4,6 +4,7 @@ from main_app.models.users import User
 
 
 class Comments(models.Model):
+    """Модель комментария в приложении."""
     class Meta:
         verbose_name = "Комментарий"
         verbose_name_plural = "Комментарии"

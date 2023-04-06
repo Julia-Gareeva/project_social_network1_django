@@ -4,6 +4,7 @@ from main_app.models import Publications, User, Comments
 
 
 class PublicationsSerializer(serializers.ModelSerializer):
+    """Класс сериализации публикации/поста в приложении."""
     class Meta:
         model = Publications
         fields = "__all__"

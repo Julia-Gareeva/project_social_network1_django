@@ -5,6 +5,7 @@ from main_app.models.users import User
 
 
 class Publications(models.Model):
+    """Модель публикации/поста в приложении."""
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"

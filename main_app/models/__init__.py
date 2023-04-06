@@ -6,5 +6,5 @@ from main_app.models.users import User
 __all__ = [
     "User",
     "Publications",
-    "Comments"
+    "Comments",
 ]
