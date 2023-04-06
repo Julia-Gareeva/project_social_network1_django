@@ -1,3 +1,5 @@
+import datetime
+
 from rest_framework import serializers
 import re
 
@@ -26,9 +28,23 @@ class UserEmailValidator:
             raise serializers.ValidationError("Разрешены адреса эл. почты только с доменными именами 'mail.ru' или 'yandex.ru'")
 
 
-class PublicationsUserValidator:
+class UserAgeValidator:
     """Валидатор для проверки того, что автору поста есть 18 лет."""
-    pass
+    def __call__(self, value):
+        t = datetime.datetime(2005, 3, 30, 0, 0)
+        t.strftime('%d/%m/%Y')
+
+        # Функция, которая возвращает значение 'year'
+        def MyFunc(t):
+            return t["year"]
+        dates = [{"year": 2005}]
+        dates.sort(key=MyFunc.__call__(value))
+        print(dates)
+
+        # if t in value:
+        #     some_list = [int(value)]
+        if value > t:
+            raise serializers.ValidationError("Публикация постов разрешена только лицам достигшим 18 лет.")
 
 
 class HeadingTextValidator:
