@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from main_app.models import User
-from main_app.validators import UserPasswordValidator
+from main_app.validators import UserPasswordValidator, UserEmailValidator
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -11,3 +11,4 @@ class UserSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     password = serializers.CharField(validators=[UserPasswordValidator()])
+    email = serializers.EmailField(validators=[UserEmailValidator()])
