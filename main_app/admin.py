@@ -16,7 +16,7 @@ class UserAdmin(admin.ModelAdmin):
 
 class PublicationsAdmin(admin.ModelAdmin):
     list_display = ("heading", "text", "image", "author_link", "comments", "date_creation", "date_editing")
-    list_filter = ("heading", "author_link", "text", "date_creation")
+    list_filter = ("heading", "author", "text", "date_creation")
     search_fields = ("heading", "text", "author_link")
 
     def author_link(self, obj):
@@ -29,7 +29,7 @@ class PublicationsAdmin(admin.ModelAdmin):
 
 class CommentsAdmin(admin.ModelAdmin):
     list_display = ("author_link", "text", "date_creation", "date_editing")
-    list_filter = ("author_link", "text")
+    list_filter = ("author", "text")
     search_fields = ("author_link", "text")
 
     def author_link(self, obj):

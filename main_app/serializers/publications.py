@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from main_app.models import Publications, User, Comments
-from main_app.validators import ForbiddenWordsValidator
+from main_app.validators import ForbiddenWordsValidator, AdultValidator
 
 
 class PublicationsSerializer(serializers.ModelSerializer):
@@ -15,6 +15,7 @@ class PublicationsSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
         queryset=User.objects.all(),
         slug_field="full_name",
+        validators=[AdultValidator()]
     )
 
     comments = serializers.SlugRelatedField(
