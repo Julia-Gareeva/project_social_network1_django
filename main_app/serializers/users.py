@@ -10,5 +10,5 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = "__all__"
 
-    password = serializers.CharField(validators=[UserPasswordValidator()])
+    password = serializers.CharField(validators=[UserPasswordValidator.validate_by_regexp("password", "pattern")])
     email = serializers.EmailField(validators=[UserEmailValidator()])
