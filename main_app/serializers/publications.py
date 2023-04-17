@@ -1,22 +1,23 @@
 from rest_framework import serializers
 
 from main_app.models import Publications, User, Comments
-from main_app.validators import UserAgeValidator
+from main_app.validators import ForbiddenWordsValidator
 
 
 class PublicationsSerializer(serializers.ModelSerializer):
     """Класс сериализации публикации/поста в приложении."""
     class Meta:
         model = Publications
-        fields = "__all__"
+        fields = ["id", "heading", "text", "author", "comments", "image", "date_creation", "date_editing"]
+
+    heading = serializers.CharField(validators=[ForbiddenWordsValidator()])
 
     author = serializers.SlugRelatedField(
         queryset=User.objects.all(),
-        slug_field="first_name" + "last_name",
-        validators=[UserAgeValidator()]
+        slug_field="full_name",
     )
 
     comments = serializers.SlugRelatedField(
         queryset=Comments.objects.all(),
-        slug_field="author" + "text"
+        slug_field="author"
     )

@@ -11,3 +11,10 @@ class User(AbstractUser):
     phone_number = models.BigIntegerField(verbose_name="Номер телефона", null=True)
     birthday = models.DateTimeField(verbose_name="Дата рождения", null=True)
     date_editing = models.DateTimeField(verbose_name="Дата редактирования", auto_now=True)
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
