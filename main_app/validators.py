@@ -9,8 +9,8 @@ class UserPasswordValidator:
 
     pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$'
 
-    @classmethod
-    def validate_by_regexp(cls, password, pattern):
+    @staticmethod
+    def validate_by_regexp(password):
         """Валидация пароля по регулярному выражению.
            Проверяет строку пароля на соответствие заданному шаблону с помощью регулярных выражений.
            Шаблон должен соответствовать желаемому формату пароля, а длина пароля должна составлять
@@ -21,26 +21,18 @@ class UserPasswordValidator:
            password (str): строка пароля для проверки.
            pattern (str): шаблон регулярного выражения для сопоставления с паролем.
         """
-        if re.match(pattern, password) is None:
+        if re.match(UserPasswordValidator.pattern, password) is None:
             raise serializers.ValidationError("Пароль имеет неправильный формат.")
 
 
-class UserEmailValidator:
+class EmailValidator:
     """Валидатор для проверки почты пользователя.
-       Разрешены домены: mail.ru, yandex.ru"""
+       Разрешены домены: mail.ru, yandex.ru """
     def __call__(self, value):
-        if "mail.ru" not in str(value):
-            raise serializers.ValidationError("Разрешены адреса эл. почты только с доменными именами 'mail.ru' или 'yandex.ru'")
+        if value.endswith('@mail.ru') or value.endswith('@yandex.ru'):
+            return value
+        raise serializers.ValidationError("Разрешены адреса эл. почты только с доменными именами 'mail.ru' или 'yandex.ru'")
 
-        if "yandex.ru" not in str(value):
-            raise serializers.ValidationError("Разрешены адреса эл. почты только с доменными именами 'mail.ru' или 'yandex.ru'")
-
-
-    # class EmailValidator:
-    #     def __call__(self, value):
-    #         if value.endswith('@mail.ru') or value.endswith('@yandex.ru'):
-    #             return value
-    #         raise serializers.ValidationError('Invalid email domain')
 
 class AdultValidator:
     """
