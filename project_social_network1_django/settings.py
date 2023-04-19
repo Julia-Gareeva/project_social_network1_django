@@ -140,3 +140,9 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = "main_app.User"
+
+DATE_FORMAT = "%d-%m-%Y"
+DATETIME_INPUT_FORMATS = [
+    "%d-%m-%Y",
+    # Add other supported formats here
+]
